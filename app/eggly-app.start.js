@@ -1,46 +1,46 @@
 
-angular.module("myapp",[])
-	
+angular.module("myapp",["ui.router", "categories", "categories.bookmarks"])
+
+	.config(function($stateProvider, $urlRouterProvider) {
+		$stateProvider
+
+			.state('eggly', {
+				url : '',
+				abstract : true
+			});
+
+
+		$urlRouterProvider.otherwise('/');
+	})
+
+
+	.controller('ProfileCtrl', function($scope, $stateParams) {
+		$scope.name = $stateParams.name;
+	})
+
+
 	.controller("RepeatCtrl",function($scope)
 	{
-		$scope.categories = [
-			{"id": 0, "name": "Development"},
-        	{"id": 1, "name": "Design"},
-        	{"id": 2, "name": "Exercise"},
-        	{"id": 3, "name": "Humor"}
-		];
-
-		$scope.bookmarks = [
-		        {"id": 0, "title": "AngularJS", "url": "http://angularjs.org", "category": "Development" },
-		        {"id": 1, "title": "Egghead.io", "url": "http://angularjs.org", "category": "Development" },
-		        {"id": 2, "title": "A List Apart", "url": "http://alistapart.com/", "category": "Design" },
-		        {"id": 3, "title": "One Page Love", "url": "http://onepagelove.com/", "category": "Design" },
-		        {"id": 4, "title": "MobilityWOD", "url": "http://www.mobilitywod.com/", "category": "Exercise" },
-		        {"id": 5, "title": "Robb Wolf", "url": "http://robbwolf.com/", "category": "Exercise" },
-		        {"id": 6, "title": "Senor Gif", "url": "http://memebase.cheezburger.com/senorgif", "category": "Humor" },
-		        {"id": 7, "title": "Wimp", "url": "http://wimp.com", "category": "Humor" },
-		        {"id": 8, "title": "Dump", "url": "http://dump.com", "category": "Humor" }
-		    ];
-
 		$scope.currentCategory = null;
+
 
 		$scope.setCurrentCategory = function(category)
 		{
 			$scope.currentCategory = category;
 			$scope.stopCreating();
 			$scope.stopEditing();
-		}
+		};
 
 		$scope.isCurrentCategory = function(category)
 		{
 			return $scope.currentCategory != null 
 			&& $scope.currentCategory == category;
-		}
+		};
 
 		$scope.states = {
 			isEditing : false,
 			isCreating: false
-		}
+		};
 		   
 		$scope.shouldShowCreating = function()
 		{
@@ -48,19 +48,18 @@ angular.module("myapp",[])
 				return true;
 			else 
 				return false;
-		}
+		};
 
 		$scope.startCreating = function()
 		{
 			$scope.states.isCreating = true;
 			$scope.states.isEditing = false;
-		}
+		};
 
 		$scope.stopCreating = function ()
 		{
 			$scope.states.isCreating = false;
-		}
-
+		};
 
 		$scope.shouldShowEditing = function()
 		{
@@ -68,19 +67,19 @@ angular.module("myapp",[])
 				return true;
 			else 
 				return true;
-		}
+		};
 
 		$scope.startEditing = function (bookmark)
 		{
 			$scope.states.isCreating = false;
 			$scope.states.isEditing = true;
 			$scope.editedBookmark = bookmark;
-		}
+		};
 
 		$scope.stopEditing = function()
 		{
 			$scope.states.isEditing = false;
-		}
+		};
 
 		$scope.createBookmark = function (newBookmark)
 		{
@@ -88,7 +87,7 @@ angular.module("myapp",[])
 			newBookmark.id = $scope.bookmarks.length;
 			$scope.bookmarks.push(newBookmark); 
 			console.log(newBookmark);
-		} 
+		};
 
 		$scope.deleteBookmark = function (bookmark)
 		{
@@ -100,9 +99,7 @@ angular.module("myapp",[])
 					$scope.bookmarks.splice(i,1);
 				}
 			}
-		}
-
-
+		};
 
 		$scope.TriggerAlert=function()
 		{
