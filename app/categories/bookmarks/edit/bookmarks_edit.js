@@ -26,11 +26,9 @@ angular.module('categories.bookmarks.edit', [])
 
         editBookmarksCtrl.createEditing = function()
         {
-            editBookmarksCtrl.add_bookmarks();
+            //editBookmarksCtrl.add_bookmarks();
             editBookmarksCtrl.returnToBookmarks();
         }
-
-
 
 
     });

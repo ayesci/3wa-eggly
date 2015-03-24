@@ -13,7 +13,7 @@ angular.module('categories', ['models.categories', 'models.bookmarks'])
                         templateUrl: 'app/categories/categories.html'
                     },
                     'bookmarks@' : {
-                        controller: 'BookmarksCtrl',
+                        controller: 'BookmarksCtrl as bookmarksCtrl' ,
                         templateUrl : 'app/categories/bookmarks/bookmarks.html'
                     }
                 }
@@ -24,7 +24,7 @@ angular.module('categories', ['models.categories', 'models.bookmarks'])
 
         CategoriesModel.getCategories().then(function(results)
         {
-            categoriesCtrl.categories = results.data;
+            categoriesCtrl.categories = results;
         })
     });
 

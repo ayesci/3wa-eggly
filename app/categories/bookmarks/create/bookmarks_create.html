@@ -1,0 +1,19 @@
+
+
+<form ng-submit="createBookmarkCtrl.createBookmark(createBookmarkCtrl.newBookmark)">
+    <pre>{{createBookmarkCtrl.newBookmark|json}}</pre>
+    <div class="form-group">
+        <label for="title">Bookmark title</label>
+        <input type="text" class="form-control" id="title"
+               ng-model="createBookmarkCtrl.newBookmark.title">
+    </div>
+    <div class="form-group">
+        <label for="url">Bookmark URL</label>
+        <input type="text" class="form-control" id="url"
+               ng-model="createBookmarkCtrl.newBookmark.url">
+    </div>
+
+    <button type="submit" class="btn btn-info">Create</button>
+    <button type="button" class="btn btn-default pull-right"
+            ng-click="createBookmarkCtrl.cancelCreating()">Cancel</button>
+</form>

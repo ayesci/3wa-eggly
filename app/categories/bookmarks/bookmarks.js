@@ -1,7 +1,14 @@
 
 // fichier app/categories/bookmarks/bookmarks.js
 
-angular.module('categories.bookmarks', ['models.bookmarks', 'categories.bookmarks.edit'])
+angular.module('categories.bookmarks',
+    [
+    'models.bookmarks',
+    'categories.bookmarks.edit',
+    'categories.bookmarks.create'
+    ])
+
+
     .config(function($stateProvider) {
         $stateProvider
             .state('eggly.categories.bookmarks', {
@@ -13,14 +20,25 @@ angular.module('categories.bookmarks', ['models.bookmarks', 'categories.bookmark
                     }
                 }
             });
-        // ...
     })
 
-    .controller('BookmarksCtrl', function(BookmarksModel) {
+    .controller('BookmarksCtrl', function(BookmarksModel,
+                                          CategoriesModel,
+                                          $stateParams
+                                          )
+    {
         var bookmarksCtrl = this;
-        BookmarksModel.getBookmarks().then(function(results)
-        {
-            bookmarksCtrl.bookmarks = results.data;
-        })
+
+        CategoriesModel.setCurrentCategory($stateParams.category);
+
+        BookmarksModel
+            .getBookmarks()
+            .then(function(results)
+            { bookmarksCtrl.bookmarks = results });
+
+        bookmarksCtrl.getCurrentCategoryName = CategoriesModel.getCurrentCategoryName;
+        bookmarksCtrl.getCurrentCategory = CategoriesModel.getCurrentCategory;
+        bookmarksCtrl.deleteCurrentBookmark = BookmarksModel.deleteCurrentBookmark;
+
     });
 
